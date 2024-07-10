@@ -8,21 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.grading.persistence.repository.CollegueImporterRepository;
-import com.grading.persistence.entity.CollegueImporterEntity;
+import com.grading.persistence.repository.ColleagueImporterRepository;
+import com.grading.persistence.entity.ColleagueImporterEntity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CollegueImporterService {
+public class ColleagueImporterService {
 
     @Autowired
-    private CollegueImporterRepository repository;
+    private ColleagueImporterRepository repository;
 
     public void importExcel(MultipartFile file) throws IOException {
-        List<CollegueImporterEntity> entities = new ArrayList<>();
+        List<ColleagueImporterEntity> entities = new ArrayList<>();
 
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
@@ -31,7 +31,7 @@ public class CollegueImporterService {
                 continue;
             }
 
-            CollegueImporterEntity entity = new CollegueImporterEntity();
+            ColleagueImporterEntity entity = new ColleagueImporterEntity();
             entity.setColumn1(row.getCell(0).getStringCellValue());
             entity.setColumn2(row.getCell(1).getStringCellValue());
             entity.setColumn3(row.getCell(2).getStringCellValue());

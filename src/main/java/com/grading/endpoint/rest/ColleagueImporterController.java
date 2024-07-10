@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.grading.service.CollegueImporterService;
+import com.grading.service.ColleagueImporterService;
 
 import java.io.IOException;
 
 @RestController
-public class CollegueImporterController {
+public class ColleagueImporterController {
 
     @Autowired
-    private CollegueImporterService excelService;
+    private ColleagueImporterService excelService;
 
     @PostMapping("/import-excel")
     public String importExcel(@RequestParam("file") MultipartFile file) {
