@@ -1,50 +1,75 @@
 package com.grading.service;
 
+import com.grading.persistence.entity.ChapterEntity;
+import com.grading.persistence.entity.ColleagueEntity;
+import com.grading.persistence.repository.ChapterRepository;
+import com.grading.persistence.repository.ColleagueRepository;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.grading.persistence.repository.ColleagueImporterRepository;
-import com.grading.persistence.entity.ColleagueImporterEntity;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
-public class ColleagueImporterService {
+public class ColleagueImporterService extends ExcelImporterService<ColleagueEntity> {
 
     @Autowired
-    private ColleagueImporterRepository repository;
+    private ColleagueRepository repository;
 
-    public void importExcel(MultipartFile file) throws IOException {
-        List<ColleagueImporterEntity> entities = new ArrayList<>();
+    @Autowired
+    private ChapterRepository chapterRepository;
 
-        Workbook workbook = new XSSFWorkbook(file.getInputStream());
-        Sheet sheet = workbook.getSheetAt(0);
-        for (Row row : sheet) {
-            if (row.getRowNum() == 0) { // Skip header row
-                continue;
-            }
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
 
-            ColleagueImporterEntity entity = new ColleagueImporterEntity();
-            entity.setColumn1(row.getCell(0).getStringCellValue());
-            entity.setColumn2(row.getCell(1).getStringCellValue());
-            entity.setColumn3(row.getCell(2).getStringCellValue());
-            entity.setColumn4(row.getCell(3).getStringCellValue());
-            entity.setColumn5(row.getCell(4).getStringCellValue());
-            entity.setColumn6(row.getCell(5).getStringCellValue());
-            entity.setColumn7(row.getCell(6).getStringCellValue());
-            entity.setColumn8(row.getCell(7).getStringCellValue());
+    @Override
+    protected ColleagueEntity mapRowToEntity(Row row) {
+        ColleagueEntity colleague = new ColleagueEntity();
 
-            entities.add(entity);
+        String firstname = row.getCell(0).getStringCellValue();
+        String lastname = row.getCell(1).getStringCellValue();
+        String email = row.getCell(2).getStringCellValue();
+        String chapterName = row.getCell(3).getStringCellValue();
+        String teamleadName = row.getCell(4).getStringCellValue();
+        boolean isCeo = row.getCell(5).getBooleanCellValue();
+
+        // Validate email format
+        if (!EMAIL_PATTERN.matcher(email).matches()) {
+            throw new IllegalArgumentException("Invalid email format: " + email);
         }
 
-        repository.saveAll(entities);
-        workbook.close();
+        // Map chapter name to Chapter entity
+        ChapterEntity chapter = chapterRepository.findByName(chapterName)
+                .orElseThrow(() -> new IllegalArgumentException("Chapter not found: " + chapterName));
+
+        // Map teamlead name to Colleague entity
+        String[] nameParts = teamleadName.split(" ");
+        if (nameParts.length != 2) {
+            throw new IllegalArgumentException("Invalid teamlead name format: " + teamleadName);
+        }
+        String teamleadFirstname = nameParts[0];
+        String teamleadLastname = nameParts[1];
+        ColleagueEntity teamlead = repository.findByFirstNameAndLastName(teamleadFirstname, teamleadLastname)
+                .orElseThrow(() -> new IllegalArgumentException("Teamlead not found: " + teamleadName));
+
+        // Set fields
+        colleague.setFirstname(firstname);
+        colleague.setLastname(lastname);
+        colleague.setEmail(email);
+        colleague.setChapter(chapter);
+        colleague.setTeamlead(teamlead);
+        colleague.setIsceo(isCeo);
+
+        return colleague;
+    }
+
+    @Override
+    protected void saveEntity(ColleagueEntity entity) {
+        repository.save(entity);
+    }
+
+    @Override
+    public boolean supports(String type) {
+        return "colleagues".equalsIgnoreCase(type);
     }
 }
