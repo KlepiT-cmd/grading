@@ -1,4 +1,8 @@
 package com.grading.persistence.repository;
 
-public class LevelRepository {
+import com.grading.persistence.entity.LevelEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LevelRepository extends JpaRepository<LevelEntity, Long> {
 }
+
