@@ -1,16 +1,15 @@
-DROP SCHEMA grading CASCADE;
-CREATE SCHEMA grading;
-CREATE TABLE grading.CHAPTER(
+CREATE SCHEMA if not exists grading;
+CREATE TABLE if not exists grading.CHAPTER(
                                 ID INT GENERATED ALWAYS AS IDENTITY,
                                 ChapterName CHARACTER (30) not null,
                                 PRIMARY KEY (ID)
 );
-CREATE TABLE grading.LEVEL(
+CREATE TABLE if not exists grading.LEVEL(
                               ID INT GENERATED ALWAYS AS IDENTITY,
                               LevelName CHARACTER (30) not null,
                               PRIMARY KEY (ID)
 );
-CREATE TABLE grading.COLLEAGUES(
+CREATE TABLE if not exists grading.COLLEAGUES(
                                    ID   INT GENERATED ALWAYS AS IDENTITY,
                                    FirstName CHARACTER (30) not null ,
                                    LastName CHARACTER (30) not null ,
@@ -30,7 +29,7 @@ CREATE TABLE grading.COLLEAGUES(
                                    FOREIGN KEY (TeamLeadId)
                                        REFERENCES grading.COLLEAGUES(ID)
 );
-CREATE TABLE grading.SKILLS(
+CREATE TABLE if not exists grading.SKILLS(
                                ID INT generated always as IDENTITY,
                                SkillName CHARACTER (255) not null,
                                ChapterId INT not null,
