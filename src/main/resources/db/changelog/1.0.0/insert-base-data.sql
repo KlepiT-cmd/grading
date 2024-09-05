@@ -1,0 +1,1 @@
+insert into grading.LEVEL values (gen_random_uuid())

@@ -175,8 +175,8 @@ paths:
     get:
       tags:
         - levels
-      summary: Find purchase order by ID
-      description: Show all chapters
+      summary: Show all levels
+      description: Show all levels
       operationId: getAllLevels
       responses:
         '200':
@@ -220,6 +220,9 @@ paths:
     put:
       tags:
         - grading
+      summary: update grading
+      description: update grading
+      operationId: updateGrading
       parameters:
         - name: gradingId
           in: path
@@ -248,6 +251,9 @@ paths:
     get:
       tags:
         - grading
+      summary: get grading
+      description: get grading
+      operationId: getGrading
       parameters:
         - name: gradingId
           in: path
@@ -320,10 +326,13 @@ components:
         anaFocus:
           type: array
           items:
-            example: Üzleti
+            example: 'Üzleti'
         competencyId:
           type: string
           example: ANA01
+        competencyName:
+          type: string
+          example: 'Fejlesztési módszertanok ismerete és alkalmazása'
         isDevCommon:
           type: boolean
           example: true
