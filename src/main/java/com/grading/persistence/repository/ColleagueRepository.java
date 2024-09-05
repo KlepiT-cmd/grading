@@ -5,6 +5,6 @@ import com.grading.persistence.entity.ColleagueEntity;
 
 import java.util.Optional;
 
-public interface ColleagueRepository extends JpaRepository<ColleagueEntity, Long> {
+public interface ColleagueRepository extends JpaRepository<ColleagueEntity, UUID> {
     Optional<ColleagueEntity> findByFirstNameAndLastName(String firstName, String lastName);
 }

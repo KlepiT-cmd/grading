@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class ColleagueEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
     private String firstname;
     private String lastname;
     private String email;
@@ -22,11 +22,11 @@ public class ColleagueEntity {
     private boolean isceo;
 
     // Getters and setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
