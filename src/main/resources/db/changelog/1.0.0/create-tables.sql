@@ -11,7 +11,7 @@ CREATE TABLE if not exists grading.LEVEL(
                               PRIMARY KEY (ID)
 );
 CREATE TABLE if not exists grading.COLLEAGUES(
-                                   ID   uuid DEFAULT uuid_generate_v4(),
+                                   ID uuid DEFAULT uuid_generate_v4(),
                                    FirstName VARCHAR (30) not null ,
                                    LastName VARCHAR (30) not null ,
                                    Email VARCHAR (200) not null ,

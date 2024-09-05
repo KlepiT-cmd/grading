@@ -1,6 +1,7 @@
 package com.grading.persistence.entity;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 public class ColleagueEntity {
@@ -10,15 +11,18 @@ public class ColleagueEntity {
     private String firstname;
     private String lastname;
     private String email;
+    private UUID currentGradingLevel;
+    private UUID newGradingLevel;
 
     @ManyToOne
-    @JoinColumn(name = "chapter_id")
+    @JoinColumn(name = "chapter_id", referencedColumnName = "id")
     private ChapterEntity chapter;
 
     @ManyToOne
-    @JoinColumn(name = "teamlead_id")
+    @JoinColumn(name = "teamlead_id", referencedColumnName = "id")
     private ColleagueEntity teamlead;
 
+    @Column(name = "IsCEO")
     private boolean isceo;
 
     // Getters and setters
