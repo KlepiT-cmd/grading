@@ -34,6 +34,7 @@ CREATE TABLE if not exists grading.SKILLS(
                                SkillName CHARACTER (255) not null,
                                ChapterId INT not null,
                                IsCommon bool not null,
+                               IsSoftSkill bool not null,
                                FOREIGN KEY (ChapterId)
                                    REFERENCES grading.CHAPTER(ID)
 );

@@ -24,7 +24,7 @@ public class ImporterController {
             for (ImporterService importerService : importerServices) {
                 if (importerService.supports(type)) {
                     importerService.importData(inputStream);
-                    return "Import successfull";
+                    return "Import success";
                 }
             }
             return "Unsupported import type.";

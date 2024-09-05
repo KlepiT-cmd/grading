@@ -1,0 +1,773 @@
+openapi: 3.0.3
+info:
+  title: Grading Admin contract
+  description: |-
+  contact:
+    email: klepeisz.tibor@novaservices.hu
+  version: 1.0.0
+servers:
+  - url: https://localhost/
+tags:
+  - name: colleagues
+    description: All functions for colleagues
+  - name: skills
+    description: Operations about skills
+  - name: chapter
+    description: Operations about chapter
+  - name: documents
+    description: Operations about documents
+  - name: levels
+    description: Operations about levels
+  - name: grading
+    description: Operations about grading
+paths:
+  /colleague/{colleagueId}:
+    put:
+      tags:
+        - colleagues
+      summary: Update an existing colleague
+      description: Update an existing colleague by Id
+      operationId: updateColleague
+      parameters:
+        - name: colleagueId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update an existent colleague
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Colleague'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Colleague'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Colleague'
+        required: true
+      responses:
+        '200':
+          description: Successful modification
+        '400':
+          description: Bad request
+        '404':
+          description: Colleague not found
+    get:
+      tags:
+        - colleagues
+      summary: Finds Colleagues by ID
+      description: Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+      operationId: findColleagueById
+      parameters:
+        - name: colleagueId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colleagues'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colleagues'
+        '404':
+          description: Colleague not found
+    delete:
+      tags:
+        - colleagues
+      summary: Deletes a colleague
+      description: delete a colleague
+      operationId: deleteColleague
+      parameters:
+        - name: colleagueId
+          in: path
+          description: Colleague id to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Colleague deleted
+        '404':
+          description: Colleague not found
+  /colleagues:
+    get:
+      tags:
+        - colleagues
+      summary: Get colleagues
+      description: Multiple status values can be provided with comma separated strings
+      operationId: getColleagues
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colleagues'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colleagues'
+        '404':
+          description: Colleagues list is empty
+    post:
+      tags:
+        - colleagues
+      summary: Creates colleagues
+      description: Creat new colleagues
+      operationId: Creat Colleagues
+      requestBody:
+        description: Create an existent colleague
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Colleague'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Colleague'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Colleague'
+        required: true
+      responses:
+        '201':
+          description: Colleagues successfully inserted
+        '400':
+          description: Bad request
+  /skill/{skillId}:
+    get:
+      tags:
+        - skills
+      summary: Get skill by ID
+      description: Get skill by ID
+      operationId: getSkillById
+      parameters:
+        - name: skillId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Skill'
+        '404':
+          description: Skill not found
+    put:
+      tags:
+        - skills
+      summary: Update an existing skill
+      description: Update an existing skill by Id
+      operationId: updateSkill
+      parameters:
+        - name: skillId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent skill
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skills'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Skills'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Skills'
+        required: true
+      responses:
+        '200':
+          description: Successful modification
+        '400':
+          description: Bad request
+        '404':
+          description: Skill not found
+    delete:
+      tags:
+        - skills
+      summary: Delete skill by ID
+      description: Delete skill by ID
+      operationId: deleteOrder
+      parameters:
+        - name: skillId
+          in: path
+          description: ID of the skill that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Delete successful
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+  /skills:
+    post:
+      tags:
+        - skills
+      summary: Create new skill
+      description: Create new skill
+      operationId: createSkill
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Skills'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Skills'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Skills'
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid input
+    get:
+      tags:
+        - skills
+      summary: get all skills
+      description: get all skills exceptions.
+      operationId: getSkills
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Skill'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+  /chapter/{chapterId}:
+    put:
+      tags:
+        - chapter
+      summary: Modifies an existing chapter
+      description: Modifies an existing chapter
+      operationId: modifyChapter
+      parameters:
+        - name: chapterId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Chapters'
+      responses:
+        '200':
+          description: Successful modification
+        '400':
+          description: Bad request
+        '404':
+          description: Chapter id not found
+    get:
+      tags:
+        - chapter
+      summary: get chapter by id
+      description: get chapter by id
+      operationId: getChapterById
+      parameters:
+        - name: chapterId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chapter'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Chapter'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+  /chapters:
+    get:
+      tags:
+        - chapter
+      summary: Show all chapters
+      description: Show all chapters
+      operationId: getAllChapters
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chapter'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Chapter'
+    post:
+      tags:
+        - chapter
+      summary: Create chapter
+      description: Create chapter.
+      operationId: createChapter
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Chapters'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Chapters'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Chapters'
+      responses:
+        '201':
+          description: Chapter created
+  /documents:
+    get:
+      tags:
+        - documents
+      summary: get all documents
+      description: Show all documents
+      operationId: getAllDocuments
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Documents'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Documents'
+  /documents/{colleagueId}&{year}:
+    get:
+      tags:
+        - documents
+      summary: get document by colleague and year
+      description: get document by colleague and year
+      operationId: getDocumentsByIdAndYear
+      parameters:
+        - name: colleagueId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: year
+          in: path
+          description: the year of the document
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Documents'
+        '404':
+          description: document not found
+    delete:
+      tags:
+        - documents
+      summary: delete document by colleague and year
+      description: delete document by colleague and year
+      operationId: deleteDocumentsByIdAndYear
+      parameters:
+        - name: colleagueId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: year
+          in: path
+          description: the year of the document
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: document not found
+  /levels:
+    get:
+      tags:
+        - levels
+      summary: Show all levels
+      description: Show all levels
+      operationId: getAllLevels
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Levels'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Levels'
+        '404':
+          description: Level list is empty
+    post:
+      tags:
+        - levels
+      summary: create levels
+      description: create levels
+      operationId: createLevels
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Level'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Level'
+        '400':
+          description: Bad request
+  /level/{levelId}:
+    put:
+      tags:
+        - levels
+      summary: Modifies an existing level
+      description: Modifies an existing level
+      operationId: modifyLevel
+      parameters:
+        - name: levelId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Level'
+      responses:
+        '200':
+          description: Successful modification
+        '400':
+          description: Bad request
+        '404':
+          description: Level id not found
+    get:
+      tags:
+        - levels
+      summary: get level by id
+      description: get level by id
+      operationId: getLevelById
+      parameters:
+        - name: levelId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Levels'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Levels'
+        '404':
+          description: Level id not found
+    delete:
+      tags:
+        - levels
+      summary: delete level by id
+      description: delete level by id
+      operationId: deleteLevelById
+      parameters:
+        - name: levelId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Level not found
+  /grading/{gradingId}:
+    delete:
+      tags:
+        - grading
+      summary: delete a specific grading
+      description: delete a specific grading
+      operationId: deleteGradingById
+      parameters:
+        - name: gradingId
+          in: path
+          description: ID to filter by
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Grading not found
+components:
+  schemas:
+    Documents:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        colleagueId:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        document:
+          type: string
+          format: base64
+          example: ZWh1bmUgdmFuIGEgZ3JhZGluZyBkb2tzaSBtb3Jl
+      xml:
+        name: document
+    Skill:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        name:
+          type: string
+          example: 'Hallott már az agilis és a vízesés módszertanokról és magas szinten meg is tudja fogalmazni a kettő közötti különbséget. Néhány alapfogalmat (pl. jellemző agilis ceremóniák) is ismer.'
+        chapterId:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        anaFocus:
+          type: array
+          items:
+            example: Üzleti
+        competencyId:
+          type: string
+          example: ANA01
+        isDevCommon:
+          type: boolean
+          example: true
+        isSoftSkill:
+          type: boolean
+          example: true
+        competencyLevel:
+          type: integer
+          example: 1
+      xml:
+        name: skill
+    Skills:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Hallott már az agilis és a vízesés módszertanokról és magas szinten meg is tudja fogalmazni a kettő közötti különbséget. Néhány alapfogalmat (pl. jellemző agilis ceremóniák) is ismer.'
+        chapterId:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        anaFocus:
+          type: string
+          example: Üzleti
+        competencyId:
+          type: string
+          example: ANA01
+        isDevCommon:
+          type: boolean
+          example: true
+        isSoftSkill:
+          type: boolean
+          example: true
+        competencyLevel:
+          type: integer
+          example: 1
+      xml:
+        name: skill
+    Chapters:
+      type: object
+      properties:
+        chapterName:
+          type: string
+          example: ANA
+      xml:
+        name: chapter
+    Chapter:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        chapterName:
+          type: string
+          example: ANA
+      xml:
+        name: chapter
+    Levels:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        name:
+          type: string
+          example: Medior2
+      xml:
+        name: tag
+    Level:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Medior2
+      xml:
+        name: tag
+    Colleague:
+      required:
+        - name
+        - photoUrls
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Elek
+        lastName:
+          type: string
+          example: Teszt
+        chapter:
+          type: string
+          enum:
+            - ANA
+            - BE
+            - TEST
+        teamLead:
+          type: string
+          example: Teszt Teamlead
+        isCeo:
+          type: boolean
+        currentLevelId:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        newLevelId:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+      xml:
+        name: colleague
+    Colleagues:
+      required:
+        - name
+        - photoUrls
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+        firstName:
+          type: string
+          example: Elek
+        lastName:
+          type: string
+          example: Teszt
+        chapter:
+          type: string
+          enum:
+            - ANA
+            - BE
+            - TEST
+        teamLead:
+          type: string
+          example: Teszt Teamlead
+        isCeo:
+          type: boolean
+        currentLevelId:
+          type: string
+          format: uuid
+          example: eb622262-fe5c-4a04-a833-7527285d5c4c
+      xml:
+        name: colleague

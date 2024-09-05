@@ -20,6 +20,7 @@ public class SkillsImporterService extends ExcelImporterService<SkillsEntity> {
         skills.setSkillName(row.getCell(0).getStringCellValue());
         skills.setChapterId(row.getCell(1).getStringCellValue());
         skills.setIsCommon(row.getCell(2).getStringCellValue());
+        skills.setIsSoftSkill(row.getCell(4).getStringCellValue());
         return skills;
     }
 

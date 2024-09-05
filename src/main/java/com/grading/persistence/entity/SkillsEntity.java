@@ -43,5 +43,8 @@ public class SkillsEntity {
 
     public void setIsCommon(String stringCellValue) {
     }
+
+    public void setIsSoftSkill(String stringCellValue) {
+    }
 }
 
