@@ -1,9 +1,6 @@
 package com.grading.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -13,6 +10,10 @@ public class SkillsEntity {
     private UUID id;
     private String skillName;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "colleague_id")
+    private ColleagueEntity colleague;
 
     // Getters and setters
     public UUID getId() {
@@ -46,6 +47,14 @@ public class SkillsEntity {
     }
 
     public void setIsSoftSkill(String stringCellValue) {
+    }
+
+    public ColleagueEntity getColleague() {
+        return colleague;
+    }
+
+    public void setColleague(ColleagueEntity colleague) {
+        this.colleague = colleague;
     }
 }
 

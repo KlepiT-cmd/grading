@@ -1,22 +1,21 @@
 package com.grading.service;
 
-import com.grading.persistence.entity.SkillsEntity;
-import com.grading.persistence.repository.SkillsRepository;
-import org.apache.poi.ss.usermodel.Row;
+import com.grading.persistence.entity.ChapterEntity;
+import com.grading.persistence.repository.ChapterRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SkillsImporterService extends ExcelImporterService<SkillsEntity> {
+public class ChapterService extends RestService<ChapterEntity> {
 
-    private final SkillsRepository repository;
+    private final ChapterRepository repository;
 
-    public SkillsImporterService(SkillsRepository repository) {
+    public ChapterService(ChapterRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    protected SkillsEntity mapRowToEntity(Row row) {
-        SkillsEntity skills = new SkillsEntity();
+    protected ChapterEntity mapRowToEntity(Row row) {
+        ChapterEntity skills = new ChapterEntity();
         skills.setSkillName(row.getCell(0).getStringCellValue());
         skills.setChapterId(row.getCell(1).getStringCellValue());
         skills.setIsCommon(row.getCell(2).getStringCellValue());
@@ -25,7 +24,7 @@ public class SkillsImporterService extends ExcelImporterService<SkillsEntity> {
     }
 
     @Override
-    protected void saveEntity(SkillsEntity entity) {
+    protected void saveEntity(ChapterEntity entity) {
         repository.save(entity);
     }
 

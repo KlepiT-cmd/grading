@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.regex.Pattern;
 
 @Service
-public class ColleagueImporterService extends ExcelImporterService<ColleagueEntity> {
+public class ColleagueService extends ExcelImporterService<ColleagueEntity> {
 
     @Autowired
     private ColleagueRepository repository;

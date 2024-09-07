@@ -1,6 +1,7 @@
 package com.grading.persistence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -24,6 +25,9 @@ public class ColleagueEntity {
 
     @Column(name = "IsCEO")
     private boolean isceo;
+
+    @OneToMany(mappedBy = "colleague", cascade = CascadeType.ALL)
+    private List<SkillsEntity> skills;
 
     // Getters and setters
     public UUID getId() {
@@ -80,5 +84,13 @@ public class ColleagueEntity {
 
     public void setIsceo(boolean isceo) {
         this.isceo = isceo;
+    }
+
+    public List<SkillsEntity> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<SkillsEntity> skills) {
+        this.skills = skills;
     }
 }
