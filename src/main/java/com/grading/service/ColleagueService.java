@@ -33,16 +33,13 @@ public class ColleagueService extends ExcelImporterService<ColleagueEntity> {
         String teamleadName = row.getCell(4).getStringCellValue();
         boolean isCeo = row.getCell(5).getBooleanCellValue();
 
-        // Validate email format
         if (!EMAIL_PATTERN.matcher(email).matches()) {
             throw new IllegalArgumentException("Invalid email format: " + email);
         }
 
-        // Map chapter name to Chapter entity
-        ChapterEntity chapter = chapterRepository.findByName(chapterName)
+        ChapterEntity chapter = (ChapterEntity) chapterRepository.findByName(chapterName)
                 .orElseThrow(() -> new IllegalArgumentException("Chapter not found: " + chapterName));
 
-        // Map teamlead name to Colleague entity
         String[] nameParts = teamleadName.split(" ");
         if (nameParts.length != 2) {
             throw new IllegalArgumentException("Invalid teamlead name format: " + teamleadName);
@@ -52,7 +49,6 @@ public class ColleagueService extends ExcelImporterService<ColleagueEntity> {
         ColleagueEntity teamlead = repository.findByFirstNameAndLastName(teamleadFirstname, teamleadLastname)
                 .orElseThrow(() -> new IllegalArgumentException("Teamlead not found: " + teamleadName));
 
-        // Set fields
         colleague.setFirstname(firstname);
         colleague.setLastname(lastname);
         colleague.setEmail(email);

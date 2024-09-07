@@ -1,9 +1,6 @@
 package com.grading.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -11,12 +8,11 @@ public class ChapterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-    private String setChapterName;
 
-    public void setChapterName(String stringCellValue) {
-    }
+    private String name;
+    private String description;
 
-    // Getters and Setters
+    // Getters and setters
     public UUID getId() {
         return id;
     }
@@ -25,11 +21,19 @@ public class ChapterEntity {
         this.id = id;
     }
 
-    public String getSetChapterName() {
-        return setChapterName;
+    public String getName() {
+        return name;
     }
 
-    public void setChapterName(String setChapterName) {
-        this.setChapterName = setChapterName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
