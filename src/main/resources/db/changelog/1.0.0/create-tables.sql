@@ -2,19 +2,19 @@ CREATE SCHEMA if not exists grading;
 CREATE extension if not exists "uuid-ossp";
 CREATE TABLE if not exists grading.CHAPTER(
                                 ID uuid DEFAULT uuid_generate_v4(),
-                                ChapterName VARCHAR (30) not null,
+                                ChapterName VARCHAR (30) not null UNIQUE,
                                 PRIMARY KEY (ID)
 );
 CREATE TABLE if not exists grading.LEVEL(
                               ID uuid DEFAULT uuid_generate_v4(),
-                              LevelName VARCHAR (2000) not null,
+                              LevelName VARCHAR (2000) not null UNIQUE,
                               PRIMARY KEY (ID)
 );
 CREATE TABLE if not exists grading.COLLEAGUES(
                                    ID uuid DEFAULT uuid_generate_v4(),
                                    FirstName VARCHAR (30) not null ,
                                    LastName VARCHAR (30) not null ,
-                                   Email VARCHAR (200) not null ,
+                                   Email VARCHAR (200) not null UNIQUE,
                                    CurrentGradingLevel uuid,
                                    NewGradingLevel uuid,
                                    ChapterId uuid,
@@ -55,9 +55,20 @@ CREATE TABLE if not exists grading.GRADING(
 CREATE TABLE if not exists grading.DOCUMENTS(
                                              ID uuid DEFAULT uuid_generate_v4(),
                                              ColleagueId uuid not null,
-                                             DocumentData VARCHAR (2000) not null,
+                                             DocumentData VARCHAR (2000) not null UNIQUE,
                                              Year INTEGER not null,
                                              FOREIGN KEY (ColleagueId)
                                                  REFERENCES grading.COLLEAGUES(ID)
 );
-
+insert into grading.LEVEL values (uuid_generate_v4(), 'Junior0');
+insert into grading.LEVEL values (uuid_generate_v4(), 'Junior1');
+insert into grading.LEVEL values (uuid_generate_v4(), 'Junior2');
+insert into grading.LEVEL values (uuid_generate_v4(), 'Medior1');
+insert into grading.LEVEL values (uuid_generate_v4(), 'Medior2');
+insert into grading.LEVEL values (uuid_generate_v4(), 'Senior1');
+insert into grading.LEVEL values (uuid_generate_v4(), 'Senior2');
+insert into grading.LEVEL values (uuid_generate_v4(), 'Expert');
+insert into grading.CHAPTER values (uuid_generate_v4(), 'ANALYST');
+insert into grading.CHAPTER values (uuid_generate_v4(), 'BACKEND_DEVELOPER');
+insert into grading.CHAPTER values (uuid_generate_v4(), 'FRONTEND_DEVELOPER');
+insert into grading.CHAPTER values (uuid_generate_v4(), 'QA');

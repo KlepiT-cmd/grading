@@ -1,19 +1,20 @@
 package com.grading.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "LEVEL", schema = "grading")
 public class LevelEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
-    private String level;
 
-    // Getters and setters
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @Column(name = "LevelName", nullable = false, unique = true)
+    private String levelName;
+
+    // Getters and Setters
     public UUID getId() {
         return id;
     }
@@ -22,15 +23,11 @@ public class LevelEntity {
         this.id = id;
     }
 
-    public String getLevel() {
-        return level;
+    public String getLevelName() {
+        return levelName;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public void setName(String stringCellValue) {
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
     }
 }
-
