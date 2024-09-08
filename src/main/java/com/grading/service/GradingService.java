@@ -29,5 +29,6 @@ public class GradingService {
     }
 
     public List<GradingEntity> findAll() {
+        return List.of();
     }
 }
