@@ -1,9 +1,12 @@
 package com.grading.persistence.entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
 @Entity
+@NoArgsConstructor
 public class ChapterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
