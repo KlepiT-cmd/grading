@@ -9,7 +9,7 @@ BEGIN
         insert into grading.LEVEL values (gen_random_uuid(), 'Senior2');
         insert into grading.LEVEL values (gen_random_uuid(), 'Expert');
     END IF;
-END $$
+END $$;
 
 DO $$
 BEGIN
@@ -19,4 +19,4 @@ BEGIN
         insert into grading.CHAPTER values (gen_random_uuid(), 'FRONTEND_DEVELOPER');
         insert into grading.CHAPTER values (gen_random_uuid(), 'QA');
     END IF;
-END $$
+END $$;
