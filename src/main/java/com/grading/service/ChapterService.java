@@ -2,7 +2,7 @@ package com.grading.service;
 
 import com.grading.persistence.entity.ChapterEntity;
 import com.grading.persistence.repository.ChapterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ChapterService {
 
-    @Autowired
-    private ChapterRepository chapterRepository;
+    private final ChapterRepository chapterRepository;
 
     public List<ChapterEntity> getAllChapters() {
         return chapterRepository.findAll();

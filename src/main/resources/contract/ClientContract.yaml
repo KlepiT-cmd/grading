@@ -326,7 +326,7 @@ components:
         anaFocus:
           type: array
           items:
-            example: 'Üzleti'
+            $ref: '#/components/schemas/AnaFocus'
         competencyId:
           type: string
           example: ANA01
@@ -344,6 +344,16 @@ components:
           example: 1
       xml:
         name: skill
+    AnaFocus:
+      type: object
+      properties:
+        name:
+          type: string
+          enum: [CORP, TECH,COORDINATION]
+          example: "CORP"
+        isInFocus:
+          type: boolean
+          example: false
     Grading:
       type: object
       properties:

@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ColleagueRepository extends JpaRepository<ColleagueEntity, UUID> {
-    Optional<ColleagueEntity> findByFirstNameAndLastName(String firstName, String lastName);
+    Optional<ColleagueEntity> findByFirstnameAndLastname(String firstName, String lastName);
 }

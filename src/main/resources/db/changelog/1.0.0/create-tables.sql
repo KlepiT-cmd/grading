@@ -2,12 +2,12 @@ CREATE SCHEMA if not exists grading;
 CREATE extension if not exists "uuid-ossp";
 CREATE TABLE if not exists grading.CHAPTER(
                                 ID uuid DEFAULT uuid_generate_v4(),
-                                ChapterName VARCHAR (30) not null,
+                                ChapterName VARCHAR (30) not null unique,
                                 PRIMARY KEY (ID)
 );
 CREATE TABLE if not exists grading.LEVEL(
                               ID uuid DEFAULT uuid_generate_v4(),
-                              LevelName VARCHAR (2000) not null,
+                              LevelName VARCHAR (2000) not null unique,
                               PRIMARY KEY (ID)
 );
 CREATE TABLE if not exists grading.COLLEAGUES(
@@ -39,7 +39,9 @@ CREATE TABLE if not exists grading.SKILLS(
                                CompetencyID VARCHAR (30) not null,
                                CompetencyName VARCHAR (2000) not null,
                                CompetencyLevel uuid not null,
-                               ANAFocus VARCHAR (30) not null,
+                               ANAFocusCorp bool,
+                               ANAFocusTech bool,
+                               ANAFocusCoordination bool,
                                FOREIGN KEY (ChapterId)
                                    REFERENCES grading.CHAPTER(ID)
 );
@@ -60,4 +62,3 @@ CREATE TABLE if not exists grading.DOCUMENTS(
                                              FOREIGN KEY (ColleagueId)
                                                  REFERENCES grading.COLLEAGUES(ID)
 );
-

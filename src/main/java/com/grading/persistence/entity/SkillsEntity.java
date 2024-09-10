@@ -1,6 +1,6 @@
 package com.grading.persistence.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity

@@ -4,20 +4,19 @@ import com.grading.persistence.entity.ChapterEntity;
 import com.grading.persistence.entity.ColleagueEntity;
 import com.grading.persistence.repository.ChapterRepository;
 import com.grading.persistence.repository.ColleagueRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
 
 @Service
+@RequiredArgsConstructor
 public class ColleagueService extends ExcelImporterService<ColleagueEntity> {
 
-    @Autowired
-    private ColleagueRepository repository;
+    private final ColleagueRepository repository;
 
-    @Autowired
-    private ChapterRepository chapterRepository;
+    private final ChapterRepository chapterRepository;
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
@@ -46,7 +45,7 @@ public class ColleagueService extends ExcelImporterService<ColleagueEntity> {
         }
         String teamleadFirstname = nameParts[0];
         String teamleadLastname = nameParts[1];
-        ColleagueEntity teamlead = repository.findByFirstNameAndLastName(teamleadFirstname, teamleadLastname)
+        ColleagueEntity teamlead = repository.findByFirstnameAndLastname(teamleadFirstname, teamleadLastname)
                 .orElseThrow(() -> new IllegalArgumentException("Teamlead not found: " + teamleadName));
 
         colleague.setFirstname(firstname);
