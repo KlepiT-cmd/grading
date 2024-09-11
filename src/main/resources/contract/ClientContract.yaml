@@ -6,7 +6,7 @@ info:
     email: klepeisz.tibor@novaservices.hu
   version: 1.0.0
 servers:
-  - url: https://localhost/
+  - url: http://localhost:8181
 tags:
   - name: colleagues
     description: All functions for colleagues
